@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+<div class="detail">
+    {% block content %}
+
+        <div class="post-entry y">
+            <h2>{{ post.title }}</h2>
+            <h3>Author:  <span>{{ post.author }}</span></h3>
+            <p>{{ post.body }}</p>
+        </div>
+    {% if user.is_authenticated %}
+
+        <div class="btn edit">
+            <a href="{% url 'post_edit' post.pk %}">
+                <i class="fa-regular fa-pen-to-square"></i>
+                Postni tahrirlash
+            </a>
+        </div>
+        <div class="btn edit">
+            <a href="{% url 'post_delete' post.pk %}">
+                <i class="fa-solid fa-trash"></i>
+                Postni o'chirish
+            </a>
+        </div>
+    {% else %}
+    <div class="btn edit">
+        <a href="{% url 'post_edit' post.pk %}" class="no">
+            <i class="fa-regular fa-pen-to-square"></i>
+            Postni tahrirlash
+        </a>
+    </div>
+    <div class="btn edit">
+        <a href="{% url 'post_delete' post.pk %}" class="no">
+            <i class="fa-solid fa-trash"></i>
+            Postni o'chirish
+        </a>
+    </div>
+    {% endif %}
+
+    {% endblock content %}
+</div>

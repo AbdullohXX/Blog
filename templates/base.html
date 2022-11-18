@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdulloh</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <header>
+        <h1><a href="{% url 'home' %}">AnyNews</a></h1>
+        <div class="enterance">
+        {% if user.is_authenticated %}
+            <p>Xush kelibsiz, {{ user.username }}!</p>  
+            <a href="{% url 'logout' %}">
+                <div class="btn log-out">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    Chiqish
+                </div>
+            </a>
+        {% else %}
+            <a href="{% url 'login' %}">
+                <div class="btn">
+                    <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                    Log in
+                </div>
+            </a>
+            <a href="{% url 'signup' %}">
+                <div class="btn">
+                    <i class="fa-solid fa-user-plus"></i>
+                    Ro'yxatdan o'tish
+                </div>
+            </a>
+        {% endif %}
+        </div>
+    </header>
+
+    <div class="posts">
+        {% block content %}
+        {% endblock content %}
+    </div>
+
+    {% if user.is_authenticated %}
+    <footer>
+        <a href="{% url 'post_new' %}">
+            <div class="btn">
+                <i class="fa-solid fa-plus"></i> 
+                Yangi post yaratish
+            </div>
+        </a>
+    </footer>
+    {% else %}
+    <footer>
+        <div class="btn">
+            <a href="{% url 'login' %}" class="no">
+                <i class="fa-solid fa-plus"></i> 
+                Yangi post yaratish
+            </a>
+        </div>
+    </footer>
+    {% endif %}
+
+</body>
+</html>
